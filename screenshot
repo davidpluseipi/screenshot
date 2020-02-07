@@ -1,0 +1,12 @@
+#!/bin/bash
+DEFAULTFILENAME='/home/david/Pictures/$(date +%Y-%m-%d-%H%M%S).png'
+DEFAULTSECONDS='2'
+INPUT='yad --title="Screenshot" --text="Take screenshot after X sec" --form --field=filename:SFL --field=seconds:NUM $DEFAULTFILENAME $DEFAULTSECONDS --focus-field=2'
+FILENAME='echo $INPUT | cut -d '|' -f1'
+SECONDS='echo $INPUT | cut -d '|' -f2'
+#if [ "$SECONDS" -eq 0 ]; then
+#  exit
+#fi
+notify-send -t 1000 screenshot "Taking a screenshot in 3 sec"
+gnome-screenshot -d $SECONDS --file=$FILENAME
+notify-send screenshot "Saved as $FILENAME"
